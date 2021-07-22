@@ -2,8 +2,7 @@ name: Node Continuous Integration
 
 on:
   push:
-    branches: [ main ]
-
+    branches: [main]
 
 jobs:
   test_pull_request:
@@ -13,5 +12,5 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14.17.0
-      - run: yarn test
-    
+      - run: yarn install
+      - run: yarn run actionTest
