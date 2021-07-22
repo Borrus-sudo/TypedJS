@@ -7,5 +7,4 @@ describe("My useInt function", () => {
     it("should run correctly", () => {
         expect(useInt(11)).toBe(11);
     });
-
 });
