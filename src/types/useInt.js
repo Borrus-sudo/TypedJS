@@ -1,12 +1,7 @@
-// import throwError from "./throwError";
+import throwError from "./throwError";
 export function useInt(value, options = {}) {
     let evalFunc = typeof value === "function" ? value : () => value;
-
-    if (!Number.isInteger(evalFunc()))
-        throw new TypeError(
-            "TypeError: Value of type non integer cannot be assigned to type integer"
-        );
-
+    if (!Number.isInteger(evalFunc())) throwError("IntTypeError");
     const payload = new Proxy(
         Object.defineProperties({}, {
             value: {
@@ -34,13 +29,8 @@ export function useInt(value, options = {}) {
             },
             set(_target, _prop, val) {
                 evalFunc = typeof val === "function" ? val : () => val;
-                if (Number.isInteger(evalFunc())) {
-                    return true;
-                } else {
-                    throw new TypeError(
-                        "TypeError: Value of type non integer cannot be assigned to type integer"
-                    );
-                }
+                if (Number.isInteger(evalFunc())) return true;
+                else throwError("IntTypeError");
             },
         }
     );
